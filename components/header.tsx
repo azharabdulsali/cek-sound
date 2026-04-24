@@ -1,5 +1,6 @@
 'use client'
 
+import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { Music } from 'lucide-react'
 
@@ -22,21 +23,21 @@ export function Header() {
             How it Works
           </a>
           <div className="flex items-center gap-2 lg:gap-3">
-            <Button variant="outline" size="sm" className="border-slate-300 text-slate-900 hover:bg-slate-100 text-xs lg:text-sm px-2 sm:px-3">
-              Sign In
+            <Button asChild variant="outline" size="sm" className="border-slate-300 text-slate-900 hover:bg-slate-100 text-xs lg:text-sm px-2 sm:px-3">
+              <Link href="/login">Sign In</Link>
             </Button>
-            <Button size="sm" className="bg-blue-600 hover:bg-blue-700 text-white text-xs lg:text-sm px-2 sm:px-3">
-              Register
+            <Button asChild size="sm" className="bg-blue-600 hover:bg-blue-700 text-white text-xs lg:text-sm px-2 sm:px-3">
+              <Link href="/register">Register</Link>
             </Button>
           </div>
         </nav>
 
         <div className="sm:hidden flex items-center gap-1.5">
-          <Button variant="outline" size="sm" className="border-slate-300 text-slate-900 text-xs px-2">
-            Sign In
+          <Button asChild variant="outline" size="sm" className="border-slate-300 text-slate-900 text-xs px-2">
+            <Link href="/login">Sign In</Link>
           </Button>
-          <Button size="sm" className="bg-blue-600 hover:bg-blue-700 text-white text-xs px-2">
-            Register
+          <Button asChild size="sm" className="bg-blue-600 hover:bg-blue-700 text-white text-xs px-2">
+            <Link href="/register">Register</Link>
           </Button>
         </div>
       </div>
