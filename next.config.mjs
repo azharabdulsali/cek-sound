@@ -6,7 +6,6 @@ const nextConfig = {
   images: {
     unoptimized: true,
   },
-  serverExternalPackages: ['onnxruntime-node', 'onnxruntime-common'],
 }
 
 export default nextConfig
