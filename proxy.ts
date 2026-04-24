@@ -7,14 +7,9 @@ export function proxy(request: NextRequest) {
   // Public routes that don't require auth
   const publicRoutes = ['/login', '/register']
   const isPublicRoute = publicRoutes.includes(pathname)
-  const isDashboardRoute = pathname.startsWith('/dashboard')
+  const isProtectedRoute = pathname.startsWith('/dashboard') || pathname.startsWith('/periksa')
 
-  // We can't reliably check Supabase sessions in proxy
-  // because Supabase stores tokens client-side (localStorage).
-  // Route protection is handled on the client side (dashboard page).
-  // Here we just pass through all requests.
-
-  if (!isPublicRoute && !isDashboardRoute) {
+  if (!isPublicRoute && !isProtectedRoute) {
     return NextResponse.next()
   }
 
@@ -22,5 +17,5 @@ export function proxy(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/login', '/register', '/dashboard/:path*'],
+  matcher: ['/login', '/register', '/dashboard/:path*', '/periksa/:path*'],
 }
