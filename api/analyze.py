@@ -1,10 +1,16 @@
 import os
 import tempfile
 from pathlib import Path
-import numpy as np
-import librosa
-import onnxruntime as ort
 import requests
+
+try:
+    import numpy as np
+    import librosa
+    import onnxruntime as ort
+    ONNX_AVAILABLE = True
+except ImportError:
+    ONNX_AVAILABLE = False
+
 from flask import Flask, request, jsonify
 from dotenv import load_dotenv
 
@@ -22,14 +28,16 @@ app = Flask(__name__)
 
 # Inisialisasi Sesi ONNX secara global agar tetap tersimpan di memori saat hot-start
 session = None
-try:
-    if os.path.exists(MODEL_PATH):
-        session = ort.InferenceSession(MODEL_PATH)
-        print("ONNX Model loaded successfully.")
-    else:
-        print(f"Warning: ONNX model not found at {MODEL_PATH}")
-except Exception as e:
-    print(f"Failed to load ONNX model: {e}")
+if ONNX_AVAILABLE:
+    try:
+        if os.path.exists(MODEL_PATH):
+            session = ort.InferenceSession(MODEL_PATH)
+            print("ONNX Model loaded successfully.")
+        else:
+            print(f"Warning: ONNX model not found at {MODEL_PATH}")
+    except Exception as e:
+        print(f"Failed to load ONNX model: {e}")
+
 
 
 def preprocess(path):
@@ -176,6 +184,9 @@ def analyze(path):
                 
         else:
             # ── Strategi Default: ONNX (Model Lokal) ──
+            if not ONNX_AVAILABLE:
+                return jsonify({'error': 'Library ONNX/Librosa tidak terinstall di environment ini (Vercel). Silakan gunakan strategi Resemble.'}), 500
+
             if session is None:
                 return jsonify({'error': 'Model ONNX belum dimuat di server.'}), 500
 
