@@ -65,7 +65,7 @@ export default function DashboardPage() {
               Selamat Datang, {userName}! 👋
             </h1>
             <p className="text-blue-100/80">
-              Kelola dan analisis audio deepfake Anda dengan mudah
+              Kelola dan analisis audio Anda dengan mudah
             </p>
           </div>
         </div>
