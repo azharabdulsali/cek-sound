@@ -2,10 +2,12 @@
 
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { Music, LogOut, User, Loader2, Menu } from 'lucide-react'
+import { AudioLines, LogOut, User, Loader2, Menu, X } from 'lucide-react'
 import { supabase } from '@/lib/supabase'
 import type { User as SupabaseUser } from '@supabase/supabase-js'
 import { AppSidebar } from './app-sidebar'
+import { ThemeToggle } from './theme-toggle'
+import Link from 'next/link'
 
 export function AppLayout({ children }: { children: React.ReactNode }) {
   const router = useRouter()
@@ -55,53 +57,90 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-slate-50 flex items-center justify-center">
+      <div className="min-h-screen bg-background flex items-center justify-center">
         <div className="flex flex-col items-center gap-3">
-          <Loader2 className="w-8 h-8 text-blue-600 animate-spin" />
-          <p className="text-sm text-slate-500">Memuat...</p>
+          <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-primary to-purple-500 flex items-center justify-center animate-pulse">
+            <AudioLines className="w-6 h-6 text-white" />
+          </div>
+          <p className="text-sm text-muted-foreground">Memuat...</p>
         </div>
       </div>
     )
   }
 
   return (
-    <div className="min-h-screen bg-slate-50 flex flex-col sm:flex-row">
+    <div className="min-h-screen bg-background flex flex-col sm:flex-row">
       {/* Mobile Topbar */}
-      <header className="sm:hidden bg-slate-900 text-white flex items-center justify-between px-4 h-16 sticky top-0 z-50">
-        <div className="flex items-center gap-2.5">
-          <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
-            <Music className="w-4 h-4 text-white" />
+      <header className="sm:hidden bg-card border-b border-border flex items-center justify-between px-4 h-16 sticky top-0 z-50">
+        <Link href="/dashboard" className="flex items-center gap-2.5">
+          <div className="w-8 h-8 bg-gradient-to-br from-primary to-purple-500 rounded-lg flex items-center justify-center">
+            <AudioLines className="w-4 h-4 text-white" />
           </div>
-          <span className="text-lg font-bold">CekSound</span>
+          <span className="text-lg font-bold text-foreground">CekSound</span>
+        </Link>
+        <div className="flex items-center gap-2">
+          <ThemeToggle />
+          <button
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            className="p-2 -mr-2 text-muted-foreground hover:text-foreground transition-colors"
+          >
+            {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+          </button>
         </div>
-        <button onClick={() => setMobileMenuOpen(!mobileMenuOpen)} className="p-2 -mr-2">
-          <Menu className="w-6 h-6 text-slate-300" />
-        </button>
       </header>
 
+      {/* Mobile Menu Overlay */}
+      {mobileMenuOpen && (
+        <div className="sm:hidden fixed inset-0 top-16 z-40 bg-background/80 backdrop-blur-sm" onClick={() => setMobileMenuOpen(false)}>
+          <div className="bg-card border-b border-border p-4 shadow-xl" onClick={(e) => e.stopPropagation()}>
+            <nav className="space-y-1">
+              <Link href="/dashboard" className="flex items-center gap-3 px-4 py-3 rounded-xl text-foreground hover:bg-accent text-sm font-medium" onClick={() => setMobileMenuOpen(false)}>
+                Dashboard
+              </Link>
+              <Link href="/periksa" className="flex items-center gap-3 px-4 py-3 rounded-xl text-foreground hover:bg-accent text-sm font-medium" onClick={() => setMobileMenuOpen(false)}>
+                Periksa Audio
+              </Link>
+              <Link href="/pengaturan" className="flex items-center gap-3 px-4 py-3 rounded-xl text-foreground hover:bg-accent text-sm font-medium" onClick={() => setMobileMenuOpen(false)}>
+                Pengaturan
+              </Link>
+            </nav>
+            <div className="mt-4 pt-4 border-t border-border">
+              <button
+                onClick={handleLogout}
+                disabled={loggingOut}
+                className="flex items-center gap-3 px-4 py-3 rounded-xl text-red-500 hover:bg-red-500/10 text-sm font-medium w-full"
+              >
+                <LogOut className="w-4 h-4" />
+                Keluar
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* Desktop Sidebar */}
-      <div className={`sm:block ${mobileMenuOpen ? 'block' : 'hidden'} sm:static absolute top-16 left-0 right-0 z-40 sm:z-auto`}>
-         <AppSidebar />
-      </div>
+      <AppSidebar />
 
       {/* Main Content Area */}
       <div className="flex-1 flex flex-col min-w-0">
         {/* Desktop Topbar */}
-        <header className="hidden sm:flex bg-slate-900 border-b border-slate-800 h-16 items-center justify-between px-6 sticky top-0 z-30">
-          <div className="flex items-center gap-2.5">
-            <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
-              <Music className="w-4 h-4 text-white" />
+        <header className="hidden sm:flex bg-card border-b border-border h-16 items-center justify-between px-6 sticky top-0 z-30">
+          <Link href="/dashboard" className="flex items-center gap-2.5">
+            <div className="w-8 h-8 bg-gradient-to-br from-primary to-purple-500 rounded-lg flex items-center justify-center">
+              <AudioLines className="w-4 h-4 text-white" />
             </div>
-            <span className="text-lg font-bold text-white">CekSound</span>
-          </div>
+            <span className="text-lg font-bold text-foreground">CekSound</span>
+          </Link>
 
-          {/* User info + logout */}
-          <div className="flex items-center gap-4">
-            <div className="flex items-center gap-2 bg-slate-800 rounded-full px-3 py-1.5 border border-slate-700">
-              <div className="w-6 h-6 bg-blue-500 rounded-full flex items-center justify-center flex-shrink-0">
+          {/* User info + theme + logout */}
+          <div className="flex items-center gap-3">
+            <ThemeToggle />
+
+            <div className="flex items-center gap-2 bg-accent rounded-full px-3 py-1.5 border border-border">
+              <div className="w-6 h-6 bg-gradient-to-br from-primary to-purple-500 rounded-full flex items-center justify-center flex-shrink-0">
                 <User className="w-3.5 h-3.5 text-white" />
               </div>
-              <span className="text-sm font-medium text-slate-200 max-w-[150px] truncate">
+              <span className="text-sm font-medium text-foreground max-w-[150px] truncate">
                 {fullName}
               </span>
             </div>
@@ -109,13 +148,13 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
             <button
               onClick={handleLogout}
               disabled={loggingOut}
-              className="w-9 h-9 rounded-full bg-slate-800 hover:bg-red-500/20 flex items-center justify-center text-slate-400 hover:text-red-400 border border-slate-700 hover:border-red-500/50 transition-all disabled:opacity-50"
+              className="w-9 h-9 rounded-full bg-accent hover:bg-destructive/10 flex items-center justify-center text-muted-foreground hover:text-destructive border border-border hover:border-destructive/30 transition-all disabled:opacity-50 cursor-pointer disabled:cursor-not-allowed"
               title="Keluar"
             >
               {loggingOut ? (
                 <Loader2 className="w-4 h-4 animate-spin" />
               ) : (
-                <LogOut className="w-4 h-4 ml-0.5" />
+                <LogOut className="w-4 h-4" />
               )}
             </button>
           </div>

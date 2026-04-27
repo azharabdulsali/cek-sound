@@ -1,80 +1,76 @@
 'use client'
 
-import { Mic, Cpu, FileText } from 'lucide-react'
+import { Upload, Cpu, FileCheck } from 'lucide-react'
 
 export function HowItWorks() {
   const steps = [
     {
-      icon: Mic,
+      icon: Upload,
       emoji: '🎙️',
-      title: 'Input Audio',
-      description: 'Unggah file audio atau rekam langsung menggunakan mikrofon Anda.',
-      color: 'from-purple-100 to-blue-100',
+      title: 'Upload Audio',
+      description: 'Unggah file audio Anda dalam format MP3, WAV, atau format audio lainnya.',
+      color: 'from-primary to-blue-400',
     },
     {
       icon: Cpu,
       emoji: '⚙️',
-      title: 'Analisis Forensik AI',
-      description: 'Model canggih kami menganalisis pola akustik dan karakteristik ucapan Anda.',
-      color: 'from-blue-100 to-cyan-100',
+      title: 'Analisis AI',
+      description: 'Model AI canggih kami menganalisis pola akustik dan karakteristik suara secara mendalam.',
+      color: 'from-purple-500 to-pink-400',
     },
     {
-      icon: FileText,
+      icon: FileCheck,
       emoji: '📊',
-      title: 'Dapatkan Verifikasi Instan',
-      description: 'Terima laporan detail dengan skor kepercayaan dan wawasan analisis mendalam.',
-      color: 'from-cyan-100 to-green-100',
+      title: 'Hasil Instan',
+      description: 'Terima laporan detail dengan skor kepercayaan dan klasifikasi audio secara real-time.',
+      color: 'from-emerald-500 to-teal-400',
     },
   ]
 
   return (
-    <section id="how-it-works" className="w-full py-20 px-4 sm:px-6 lg:px-8 flex items-center bg-gradient-to-b from-slate-50 via-white to-blue-50 animate-in fade-in slide-in-from-bottom-8 duration-1000 relative overflow-hidden">
-      {/* Background decorations */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute bottom-0 left-1/3 w-64 sm:w-96 h-64 sm:h-96 bg-blue-100 rounded-full mix-blend-multiply filter blur-3xl opacity-10 animate-float" style={{ animationDelay: '1s' }}></div>
+    <section id="how-it-works" className="w-full py-24 px-4 sm:px-6 lg:px-8 bg-muted/30 relative overflow-hidden">
+      {/* Subtle background decoration */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden">
+        <div className="absolute top-1/2 left-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl -translate-y-1/2" />
+        <div className="absolute top-1/2 right-0 w-96 h-96 bg-purple-500/5 rounded-full blur-3xl -translate-y-1/2" />
       </div>
 
-      <div className="max-w-6xl mx-auto w-full relative z-10">
-        <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900 text-center mb-3 sm:mb-4 text-balance animate-slide-up">
-          Cara Kerjanya
-        </h2>
-        <p className="text-center text-slate-600 text-base sm:text-lg mb-12 sm:mb-16 max-w-2xl mx-auto animate-slide-up px-4" style={{ animationDelay: '0.2s' }}>
-          Tiga langkah sederhana untuk memverifikasi keaslian audio Anda dengan AI terdepan
-        </p>
+      <div className="max-w-6xl mx-auto relative z-10">
+        {/* Section header */}
+        <div className="text-center mb-16">
+          <div className="inline-flex items-center gap-2 text-primary text-sm font-medium mb-4 bg-primary/10 px-3 py-1 rounded-full">
+            <Cpu className="w-4 h-4" />
+            Cara Kerja
+          </div>
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground mb-4 text-balance">
+            Tiga Langkah{' '}
+            <span className="gradient-text">Sederhana</span>
+          </h2>
+          <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
+            Verifikasi keaslian audio Anda dengan AI terdepan dalam hitungan detik
+          </p>
+        </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
-          {steps.map((step, index) => {
-            const Icon = step.icon
-            return (
-              <div
-                key={index}
-                className="relative animate-bounce-in"
-                style={{ animationDelay: `${index * 150}ms` }}
-              >
-                {/* Connector Line */}
-                {index < steps.length - 1 && (
-                  <div className="hidden lg:block absolute top-12 sm:top-14 left-1/2 w-full h-1.5 bg-gradient-to-r from-blue-400 via-blue-300 to-blue-200 transform -translate-x-1/2 translate-x-12 rounded-full"></div>
-                )}
+        {/* Steps */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 relative">
+          {/* Connection line (desktop) */}
+          <div className="hidden md:block absolute top-16 left-[20%] right-[20%] h-0.5 bg-gradient-to-r from-primary/20 via-purple-500/20 to-emerald-500/20" />
 
-                <div className="relative z-10 text-center">
-                  <div className={`w-20 sm:w-24 lg:w-28 h-20 sm:h-24 lg:h-28 bg-gradient-to-br ${step.color} rounded-3xl flex items-center justify-center mx-auto mb-4 sm:mb-6 shadow-xl border-4 border-white transform hover:scale-110 transition-transform duration-300 group`}>
-                    <span className="text-3xl sm:text-4xl lg:text-5xl group-hover:animate-float">{step.emoji}</span>
-                  </div>
-                  <div className="inline-block px-3 sm:px-4 py-1.5 sm:py-2 bg-blue-100 rounded-full mb-2 sm:mb-3">
-                    <p className="text-xs font-bold text-blue-700 uppercase tracking-widest">
-                      Langkah {index + 1}
-                    </p>
-                  </div>
-                  <h3 className="text-lg sm:text-xl lg:text-2xl font-bold text-slate-900 mb-2 sm:mb-3 text-pretty">
-                    {step.title}
-                  </h3>
-                  <p className="text-slate-600 text-sm sm:text-base leading-relaxed text-pretty px-2">
-                    {step.description}
-                  </p>
+          {steps.map((step, index) => (
+            <div key={index} className="relative text-center group">
+              {/* Step number circle */}
+              <div className={`w-32 h-32 bg-gradient-to-br ${step.color} rounded-3xl flex items-center justify-center mx-auto mb-6 shadow-xl relative group-hover:scale-105 transition-transform duration-300`}>
+                <span className="text-4xl">{step.emoji}</span>
+                {/* Step number badge */}
+                <div className="absolute -top-2 -right-2 w-8 h-8 bg-card border-2 border-border rounded-full flex items-center justify-center text-sm font-bold text-foreground shadow-sm">
+                  {index + 1}
                 </div>
               </div>
-            )
-          })}
+
+              <h3 className="text-xl font-bold text-foreground mb-3">{step.title}</h3>
+              <p className="text-muted-foreground leading-relaxed max-w-xs mx-auto">{step.description}</p>
+            </div>
+          ))}
         </div>
       </div>
     </section>

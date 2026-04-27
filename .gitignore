@@ -14,3 +14,10 @@ next.user-config.*
 node_modules
 .next/
 .DS_Store
+.vercel
+
+# AI Models
+models/
+folder_hasil_onnx/
+*.onnx
+*.safetensors
