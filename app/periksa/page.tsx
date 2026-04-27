@@ -282,7 +282,7 @@ export default function PeriksaPage() {
 
   return (
     <AppLayout>
-      <div className="p-4 sm:p-6 max-w-5xl mx-auto">
+      <div className="p-4 sm:p-6">
         {/* Page Header */}
         <div className="bg-gradient-to-br from-primary via-blue-500 to-purple-600 rounded-2xl p-6 sm:p-8 text-white shadow-xl shadow-primary/15 mb-8 relative overflow-hidden">
           <div className="absolute inset-0 overflow-hidden pointer-events-none">

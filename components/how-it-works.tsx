@@ -8,7 +8,7 @@ export function HowItWorks() {
       icon: Upload,
       emoji: '🎙️',
       title: 'Upload Audio',
-      description: 'Unggah file audio Anda dalam format MP3, WAV, atau format audio lainnya.',
+      description: 'Rekam atau unggah file audio Anda dalam format MP3, WAV, atau format audio lainnya.',
       color: 'from-primary to-blue-400',
     },
     {
@@ -35,7 +35,7 @@ export function HowItWorks() {
         <div className="absolute top-1/2 right-0 w-96 h-96 bg-purple-500/5 rounded-full blur-3xl -translate-y-1/2" />
       </div>
 
-      <div className="max-w-6xl mx-auto relative z-10">
+      <div className="mx-auto relative z-10">
         {/* Section header */}
         <div className="text-center mb-16">
           <div className="inline-flex items-center gap-2 text-primary text-sm font-medium mb-4 bg-primary/10 px-3 py-1 rounded-full">

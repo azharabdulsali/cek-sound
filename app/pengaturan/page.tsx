@@ -116,7 +116,7 @@ export default function PengaturanPage() {
 
   return (
     <AppLayout>
-      <div className="p-4 sm:p-6 max-w-3xl mx-auto">
+      <div className="p-4 sm:p-6">
         {/* Page Header */}
         <div className="bg-gradient-to-br from-primary via-blue-500 to-purple-600 rounded-2xl p-6 sm:p-8 text-white shadow-xl shadow-primary/15 mb-8 relative overflow-hidden">
           <div className="absolute inset-0 overflow-hidden pointer-events-none">
@@ -389,7 +389,7 @@ export default function PengaturanPage() {
               </div>
               <div className="flex justify-between">
                 <span className="text-muted-foreground">AI Engine</span>
-                <span className="text-foreground font-medium">ONNX / Resemble AI</span>
+                <span className="text-foreground font-medium">ONNX</span>
               </div>
             </div>
           </div>

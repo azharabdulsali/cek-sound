@@ -7,7 +7,7 @@ import Link from 'next/link'
 export function PromotionSection() {
   return (
     <section className="w-full py-24 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
-      <div className="max-w-5xl mx-auto relative">
+      <div className="mx-auto relative">
         {/* CTA Card */}
         <div className="relative bg-gradient-to-br from-primary via-blue-500 to-purple-600 rounded-3xl p-10 sm:p-16 text-center overflow-hidden shadow-2xl shadow-primary/20">
           {/* Animated background orbs */}
