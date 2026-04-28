@@ -284,25 +284,25 @@ export default function PeriksaPage() {
     <AppLayout>
       <div className="p-4 sm:p-6">
         {/* Page Header */}
-        <div className="bg-gradient-to-br from-primary via-blue-500 to-purple-600 rounded-2xl p-6 sm:p-8 text-white shadow-xl shadow-primary/15 mb-8 relative overflow-hidden">
+        <div className="bg-gradient-to-br from-primary via-blue-500 to-purple-600 rounded-2xl p-5 sm:p-8 text-white shadow-xl shadow-primary/15 mb-6 sm:mb-8 relative overflow-hidden">
           <div className="absolute inset-0 overflow-hidden pointer-events-none">
             <div className="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full blur-3xl" />
             <div className="absolute bottom-0 left-0 w-48 h-48 bg-white/5 rounded-full blur-3xl" />
           </div>
           <div className="relative z-10">
             <div className="flex items-center gap-3 mb-2">
-              <div className="w-10 h-10 bg-white/15 backdrop-blur-sm rounded-xl flex items-center justify-center">
+              <div className="w-10 h-10 bg-white/15 backdrop-blur-sm rounded-xl flex items-center justify-center flex-shrink-0">
                 <Shield className="w-5 h-5 text-white" />
               </div>
-              <h1 className="text-2xl sm:text-3xl font-bold">Periksa Keaslian Audio</h1>
+              <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold">Periksa Keaslian Audio</h1>
             </div>
-            <p className="text-blue-100/80 ml-[52px]">
+            <p className="text-blue-100/80 text-sm sm:text-base mt-1 pl-[52px]">
               Upload file audio atau rekam langsung dari mikrofon (maks 10 detik, 10MB)
             </p>
           </div>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-5 gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-5 gap-4 sm:gap-6">
           {/* Upload / Record Panel — 3 cols */}
           <div className="lg:col-span-3 space-y-4">
             {/* Upload or Record */}
@@ -474,7 +474,7 @@ export default function PeriksaPage() {
 
           {/* Result Panel — 2 cols */}
           <div className="lg:col-span-2">
-            <div className="bg-card border border-border rounded-2xl p-6 shadow-sm h-full min-h-[400px] flex flex-col">
+            <div className="bg-card border border-border rounded-2xl p-5 sm:p-6 shadow-sm h-full min-h-[300px] lg:min-h-[400px] flex flex-col">
               <h3 className="font-bold text-foreground mb-4 pb-4 border-b border-border">
                 Hasil Analisis
               </h3>

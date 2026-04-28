@@ -69,38 +69,57 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
   }
 
   return (
-    <div className="min-h-screen bg-background flex flex-col sm:flex-row">
-      {/* Mobile Topbar */}
-      <header className="sm:hidden bg-card border-b border-border flex items-center justify-between px-4 h-16 sticky top-0 z-50">
+    <div className="min-h-screen bg-background flex flex-col md:flex-row">
+      {/* Mobile Topbar — only visible on <768px */}
+      <header className="md:hidden bg-card border-b border-border flex items-center justify-between px-4 h-14 sticky top-0 z-50">
         <Link href="/dashboard" className="flex items-center gap-2.5">
           <div className="w-8 h-8 bg-gradient-to-br from-primary to-purple-500 rounded-lg flex items-center justify-center">
             <AudioLines className="w-4 h-4 text-white" />
           </div>
-          <span className="text-lg font-bold text-foreground">CekSound</span>
+          <span className="text-base font-bold text-foreground">CekSound</span>
         </Link>
         <div className="flex items-center gap-2">
           <ThemeToggle />
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="p-2 -mr-2 text-muted-foreground hover:text-foreground transition-colors"
+            className="p-2 -mr-1.5 text-muted-foreground hover:text-foreground transition-colors rounded-lg hover:bg-accent"
+            aria-label="Toggle menu"
           >
-            {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
           </button>
         </div>
       </header>
 
-      {/* Mobile Menu Overlay */}
+      {/* Mobile Menu Overlay — only on <768px */}
       {mobileMenuOpen && (
-        <div className="sm:hidden fixed inset-0 top-16 z-40 bg-background/80 backdrop-blur-sm" onClick={() => setMobileMenuOpen(false)}>
-          <div className="bg-card border-b border-border p-4 shadow-xl" onClick={(e) => e.stopPropagation()}>
+        <div
+          className="md:hidden fixed inset-0 top-14 z-40 bg-background/80 backdrop-blur-sm"
+          onClick={() => setMobileMenuOpen(false)}
+        >
+          <div
+            className="bg-card border-b border-border p-4 shadow-xl"
+            onClick={(e) => e.stopPropagation()}
+          >
             <nav className="space-y-1">
-              <Link href="/dashboard" className="flex items-center gap-3 px-4 py-3 rounded-xl text-foreground hover:bg-accent text-sm font-medium" onClick={() => setMobileMenuOpen(false)}>
+              <Link
+                href="/dashboard"
+                className="flex items-center gap-3 px-4 py-3 rounded-xl text-foreground hover:bg-accent text-sm font-medium"
+                onClick={() => setMobileMenuOpen(false)}
+              >
                 Dashboard
               </Link>
-              <Link href="/periksa" className="flex items-center gap-3 px-4 py-3 rounded-xl text-foreground hover:bg-accent text-sm font-medium" onClick={() => setMobileMenuOpen(false)}>
+              <Link
+                href="/periksa"
+                className="flex items-center gap-3 px-4 py-3 rounded-xl text-foreground hover:bg-accent text-sm font-medium"
+                onClick={() => setMobileMenuOpen(false)}
+              >
                 Periksa Audio
               </Link>
-              <Link href="/pengaturan" className="flex items-center gap-3 px-4 py-3 rounded-xl text-foreground hover:bg-accent text-sm font-medium" onClick={() => setMobileMenuOpen(false)}>
+              <Link
+                href="/pengaturan"
+                className="flex items-center gap-3 px-4 py-3 rounded-xl text-foreground hover:bg-accent text-sm font-medium"
+                onClick={() => setMobileMenuOpen(false)}
+              >
                 Pengaturan
               </Link>
             </nav>
@@ -118,29 +137,29 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
         </div>
       )}
 
-      {/* Desktop Sidebar */}
+      {/* Sidebar — visible md+ (tablet & desktop) */}
       <AppSidebar />
 
       {/* Main Content Area */}
       <div className="flex-1 flex flex-col min-w-0">
-        {/* Desktop Topbar */}
-        <header className="hidden sm:flex bg-card border-b border-border h-16 items-center justify-between px-6 sticky top-0 z-30">
+        {/* Desktop / Tablet Topbar — hidden on mobile */}
+        <header className="hidden md:flex bg-card border-b border-border h-16 items-center justify-between px-5 lg:px-6 sticky top-0 z-30">
           <Link href="/dashboard" className="flex items-center gap-2.5">
             <div className="w-8 h-8 bg-gradient-to-br from-primary to-purple-500 rounded-lg flex items-center justify-center">
               <AudioLines className="w-4 h-4 text-white" />
             </div>
-            <span className="text-lg font-bold text-foreground">CekSound</span>
+            <span className="text-base font-bold text-foreground">CekSound</span>
           </Link>
 
           {/* User info + theme + logout */}
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2 lg:gap-3">
             <ThemeToggle />
 
             <div className="flex items-center gap-2 bg-accent rounded-full px-3 py-1.5 border border-border">
               <div className="w-6 h-6 bg-gradient-to-br from-primary to-purple-500 rounded-full flex items-center justify-center flex-shrink-0">
                 <User className="w-3.5 h-3.5 text-white" />
               </div>
-              <span className="text-sm font-medium text-foreground max-w-[150px] truncate">
+              <span className="text-sm font-medium text-foreground max-w-[120px] lg:max-w-[150px] truncate">
                 {fullName}
               </span>
             </div>

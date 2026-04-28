@@ -118,18 +118,18 @@ export default function PengaturanPage() {
     <AppLayout>
       <div className="p-4 sm:p-6">
         {/* Page Header */}
-        <div className="bg-gradient-to-br from-primary via-blue-500 to-purple-600 rounded-2xl p-6 sm:p-8 text-white shadow-xl shadow-primary/15 mb-8 relative overflow-hidden">
+        <div className="bg-gradient-to-br from-primary via-blue-500 to-purple-600 rounded-2xl p-5 sm:p-8 text-white shadow-xl shadow-primary/15 mb-6 sm:mb-8 relative overflow-hidden">
           <div className="absolute inset-0 overflow-hidden pointer-events-none">
             <div className="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full blur-3xl" />
           </div>
           <div className="relative z-10">
             <div className="flex items-center gap-3 mb-2">
-              <div className="w-10 h-10 bg-white/15 backdrop-blur-sm rounded-xl flex items-center justify-center">
+              <div className="w-10 h-10 bg-white/15 backdrop-blur-sm rounded-xl flex items-center justify-center flex-shrink-0">
                 <Settings className="w-5 h-5 text-white" />
               </div>
-              <h1 className="text-2xl sm:text-3xl font-bold">Pengaturan</h1>
+              <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold">Pengaturan</h1>
             </div>
-            <p className="text-blue-100/80 ml-[52px]">
+            <p className="text-blue-100/80 text-sm sm:text-base mt-1 pl-[52px]">
               Kelola profil dan preferensi akun Anda
             </p>
           </div>
@@ -323,7 +323,7 @@ export default function PengaturanPage() {
             </div>
 
             <div className="space-y-4">
-              <div className="flex items-center justify-between">
+              <div className="flex flex-wrap items-center justify-between gap-3">
                 <div>
                   <p className="text-sm font-medium text-foreground">Tema Warna</p>
                   <p className="text-xs text-muted-foreground mt-0.5">Pilih antara terang, gelap, atau ikuti sistem</p>

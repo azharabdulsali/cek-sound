@@ -22,7 +22,7 @@ export function AppSidebar() {
   const pathname = usePathname();
 
   return (
-    <aside className="w-64 bg-card border-r border-border flex-shrink-0 h-screen sticky top-0 hidden sm:flex flex-col">
+    <aside className="w-56 lg:w-64 bg-card border-r border-border flex-shrink-0 h-screen sticky top-0 hidden md:flex flex-col">
       <div className="p-4 pt-6 flex-1">
         <nav className="space-y-1">
           {navItems.map((item) => {
