@@ -51,17 +51,23 @@ if ONNX_AVAILABLE:
 def convert_to_wav(src_path: str) -> str:
     """
     Konversi file audio (m4a, mp4, dll.) ke WAV 16kHz mono menggunakan ffmpeg.
-    Mengembalikan path file WAV sementara.
-    Melempar RuntimeError jika ffmpeg tidak tersedia atau konversi gagal.
+    Mendukung 'imageio-ffmpeg' untuk environment Vercel, dengan fallback ke ffmpeg sistem.
     """
     import subprocess
     import shutil
 
-    if shutil.which('ffmpeg') is None:
-        raise RuntimeError(
-            'ffmpeg tidak ditemukan di PATH. Pastikan ffmpeg sudah terinstall '
-            'dan dapat diakses dari terminal.'
-        )
+    try:
+        # Coba gunakan imageio-ffmpeg (Sangat berguna untuk Vercel / Serverless)
+        import imageio_ffmpeg
+        ffmpeg_cmd = imageio_ffmpeg.get_ffmpeg_exe()
+    except ImportError:
+        # Fallback ke ffmpeg di sistem PATH (Local Windows/Linux)
+        ffmpeg_cmd = shutil.which('ffmpeg')
+        if ffmpeg_cmd is None:
+            raise RuntimeError(
+                'ffmpeg tidak ditemukan. Pastikan package `imageio-ffmpeg` terinstall '
+                'atau `ffmpeg` ada di PATH sistem.'
+            )
 
     with tempfile.NamedTemporaryFile(suffix='.wav', delete=False) as tmp_wav:
         wav_path = tmp_wav.name
@@ -69,7 +75,7 @@ def convert_to_wav(src_path: str) -> str:
     try:
         result = subprocess.run(
             [
-                'ffmpeg', '-y',          # overwrite tanpa tanya
+                ffmpeg_cmd, '-y',        # path ffmpeg yang dinamis
                 '-i', src_path,          # input
                 '-ac', '1',              # mono
                 '-ar', '16000',          # 16 kHz
