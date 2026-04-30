@@ -19,7 +19,15 @@ load_dotenv(os.path.join(os.path.dirname(__file__), '..', '.env.local'))
 
 # ── Config ──────────────────────────────────────────────────
 TARGET_SR = 16000
-ALLOWED_EXTENSIONS = {'mp3', 'wav', 'flac', 'ogg', 'webm'}
+ALLOWED_EXTENSIONS = {'mp3', 'wav', 'flac', 'ogg', 'webm', 'm4a', 'mp4'}
+# MIME types tambahan yang diterima (khususnya dari Expo/React Native)
+ALLOWED_MIME_TYPES = {
+    'audio/mp4', 'audio/m4a', 'audio/x-m4a',
+    'audio/mpeg', 'audio/wav', 'audio/flac',
+    'audio/ogg', 'audio/webm',
+}
+# Format yang memerlukan konversi ke WAV sebelum analisis ONNX/librosa
+NEEDS_CONVERSION = {'m4a', 'mp4'}
 
 # Path relatif terhadap file ini (api/analyze.py)
 MODEL_PATH = os.path.join(os.path.dirname(__file__), '..', 'models', 'model.onnx')
@@ -38,6 +46,49 @@ if ONNX_AVAILABLE:
     except Exception as e:
         print(f"Failed to load ONNX model: {e}")
 
+
+
+def convert_to_wav(src_path: str) -> str:
+    """
+    Konversi file audio (m4a, mp4, dll.) ke WAV 16kHz mono menggunakan ffmpeg.
+    Mengembalikan path file WAV sementara.
+    Melempar RuntimeError jika ffmpeg tidak tersedia atau konversi gagal.
+    """
+    import subprocess
+    import shutil
+
+    if shutil.which('ffmpeg') is None:
+        raise RuntimeError(
+            'ffmpeg tidak ditemukan di PATH. Pastikan ffmpeg sudah terinstall '
+            'dan dapat diakses dari terminal.'
+        )
+
+    with tempfile.NamedTemporaryFile(suffix='.wav', delete=False) as tmp_wav:
+        wav_path = tmp_wav.name
+
+    try:
+        result = subprocess.run(
+            [
+                'ffmpeg', '-y',          # overwrite tanpa tanya
+                '-i', src_path,          # input
+                '-ac', '1',              # mono
+                '-ar', '16000',          # 16 kHz
+                '-f', 'wav',             # format output
+                wav_path
+            ],
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            timeout=60,
+        )
+        if result.returncode != 0:
+            stderr_msg = result.stderr.decode('utf-8', errors='replace').strip()
+            raise RuntimeError(
+                f'ffmpeg gagal mengkonversi file (exit code {result.returncode}): {stderr_msg[-500:]}'
+            )
+    except subprocess.TimeoutExpired:
+        raise RuntimeError('ffmpeg timeout setelah 60 detik saat mengkonversi file.')
+
+    return wav_path
 
 
 def preprocess(path):
@@ -71,15 +122,46 @@ def analyze(path):
         return jsonify({'error': 'Nama file kosong.'}), 400
 
     ext = Path(original_filename).suffix[1:].lower()
+
+    # Periksa MIME type sebagai fallback jika ekstensi tidak dikenal
+    # (berguna untuk file dari Expo yang mungkin pakai MIME audio/mp4)
+    content_type = (f.content_type or '').lower().split(';')[0].strip()
     if ext not in ALLOWED_EXTENSIONS:
-        return jsonify({'error': f'Format .{ext} tidak didukung.'}), 400
+        if content_type in ALLOWED_MIME_TYPES:
+            # Mapping MIME → ekstensi
+            mime_to_ext = {
+                'audio/mp4': 'm4a',
+                'audio/m4a': 'm4a',
+                'audio/x-m4a': 'm4a',
+                'audio/mpeg': 'mp3',
+                'audio/wav': 'wav',
+                'audio/flac': 'flac',
+                'audio/ogg': 'ogg',
+                'audio/webm': 'webm',
+            }
+            ext = mime_to_ext.get(content_type, ext)
+        else:
+            return jsonify({'error': f'Format .{ext} tidak didukung. Format yang didukung: mp3, wav, flac, ogg, webm, m4a.'}), 400
 
     # Simpan file ke temp storage
     with tempfile.NamedTemporaryFile(suffix=f'.{ext}', delete=False) as tmp:
         f.save(tmp.name)
         tmp_path = tmp.name
 
+    # Path file WAV hasil konversi (None jika tidak perlu konversi)
+    converted_wav_path = None
+
     try:
+        # Konversi m4a/mp4 → WAV sebelum analisis
+        if ext in NEEDS_CONVERSION:
+            try:
+                converted_wav_path = convert_to_wav(tmp_path)
+                analysis_path = converted_wav_path
+            except RuntimeError as conv_err:
+                return jsonify({'error': str(conv_err)}), 500
+        else:
+            analysis_path = tmp_path
+
         if ai_strategy == 'resemble':
             # ── Strategi: Resemble AI Detect ──
             import time
@@ -104,14 +186,17 @@ def analyze(path):
                 supabase_client = create_client(supabase_url, supabase_key)
                 
                 # Buat nama file unik
-                file_ext = os.path.splitext(tmp_path)[1]
+                # Gunakan file WAV hasil konversi jika tersedia (agar Resemble menerima format yang valid)
+                upload_path = converted_wav_path if converted_wav_path else tmp_path
+                file_ext = os.path.splitext(upload_path)[1]
                 unique_filename = f"{uuid.uuid4()}{file_ext}"
+                upload_mime = 'audio/wav' if converted_wav_path else 'audio/mpeg'
                 
-                with open(tmp_path, 'rb') as audio_f:
+                with open(upload_path, 'rb') as audio_f:
                     supabase_client.storage.from_('audio_temp').upload(
                         file=audio_f.read(),
                         path=unique_filename,
-                        file_options={"content-type": "audio/mpeg"}
+                        file_options={"content-type": upload_mime}
                     )
                 
                 # Dapatkan public URL
@@ -190,8 +275,8 @@ def analyze(path):
             if session is None:
                 return jsonify({'error': 'Model ONNX belum dimuat di server.'}), 500
 
-            # Preprocessing
-            input_data = preprocess(tmp_path)
+            # Preprocessing (gunakan analysis_path: WAV hasil konversi jika ada)
+            input_data = preprocess(analysis_path)
             
             # ONNX Inference
             input_name = session.get_inputs()[0].name
@@ -222,9 +307,11 @@ def analyze(path):
     except Exception as e:
         return jsonify({'error': str(e)}), 500
     finally:
-        # Bersihkan file temp
-        if os.path.exists(tmp_path):
+        # Bersihkan semua file temp
+        if tmp_path and os.path.exists(tmp_path):
             os.unlink(tmp_path)
+        if converted_wav_path and os.path.exists(converted_wav_path):
+            os.unlink(converted_wav_path)
 
 if __name__ == '__main__':
     app.run(debug=True, port=5328)
