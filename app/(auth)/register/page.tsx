@@ -84,34 +84,29 @@ export default function RegisterPage() {
   return (
     <div className="w-full max-w-md">
       {/* Theme toggle */}
-      <div className="flex justify-end mb-4">
+      <div className="flex justify-end mb-6">
         <ThemeToggle />
       </div>
 
       {/* Card */}
-      <div className="bg-card rounded-2xl shadow-xl shadow-foreground/5 border border-border overflow-hidden">
+      <div className="bg-card rounded-xl shadow-xl border border-border overflow-hidden">
         {/* Header */}
-        <div className="bg-gradient-to-br from-primary via-blue-500 to-purple-600 px-8 py-8 text-white relative overflow-hidden">
-          <div className="absolute inset-0 overflow-hidden pointer-events-none">
-            <div className="absolute top-0 right-0 w-32 h-32 bg-white/5 rounded-full blur-2xl" />
-          </div>
-          <div className="relative z-10">
-            <div className="flex items-center gap-3 mb-6">
-              <div className="w-9 h-9 bg-white/15 backdrop-blur-sm rounded-xl flex items-center justify-center">
-                <AudioLines className="w-5 h-5 text-white" />
-              </div>
-              <span className="text-xl font-bold tracking-tight">CekSound</span>
+        <div className="px-7 pt-7 pb-0">
+          <div className="flex items-center gap-2.5 mb-6">
+            <div className="w-8 h-8 bg-primary/10 rounded-lg flex items-center justify-center">
+              <AudioLines className="w-4 h-4 text-primary" />
             </div>
-            <h1 className="text-2xl font-bold mb-1">Buat akun baru</h1>
-            <p className="text-blue-100/80 text-sm">Daftar gratis dan mulai verifikasi audio Anda</p>
+            <span className="text-sm font-bold text-foreground tracking-tight">CekSound</span>
           </div>
+          <h1 className="text-xl font-bold text-foreground mb-1 tracking-tight">Buat akun baru</h1>
+          <p className="text-sm text-muted-foreground">Daftar gratis dan mulai verifikasi audio Anda</p>
         </div>
 
         {/* Form */}
-        <div className="px-8 py-8">
+        <div className="px-7 py-7">
           {/* Success message */}
           {successMessage && (
-            <div className="mb-5 flex items-start gap-3 bg-emerald-500/10 border border-emerald-500/20 rounded-xl px-4 py-3">
+            <div className="mb-5 flex items-start gap-3 bg-emerald-500/10 border border-emerald-500/20 rounded-lg px-4 py-3">
               <CheckCircle2 className="w-5 h-5 text-emerald-500 flex-shrink-0 mt-0.5" />
               <p className="text-sm text-emerald-600 dark:text-emerald-400">{successMessage}</p>
             </div>
@@ -119,7 +114,7 @@ export default function RegisterPage() {
 
           {/* Error message */}
           {serverError && (
-            <div className="mb-5 flex items-start gap-3 bg-destructive/10 border border-destructive/20 rounded-xl px-4 py-3">
+            <div className="mb-5 flex items-start gap-3 bg-destructive/10 border border-destructive/20 rounded-lg px-4 py-3">
               <div className="w-5 h-5 rounded-full bg-destructive/20 flex items-center justify-center flex-shrink-0 mt-0.5">
                 <span className="text-destructive text-xs font-bold">!</span>
               </div>
@@ -127,21 +122,21 @@ export default function RegisterPage() {
             </div>
           )}
 
-          <form onSubmit={handleSubmit(onSubmit)} className="space-y-5" noValidate>
+          <form onSubmit={handleSubmit(onSubmit)} className="space-y-4" noValidate>
             {/* Full Name */}
             <div className="space-y-1.5">
-              <label htmlFor="register-fullname" className="block text-sm font-medium text-foreground">
+              <label htmlFor="register-fullname" className="block text-xs font-medium text-foreground tracking-wide">
                 Nama Lengkap
               </label>
               <div className="relative">
-                <User className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground pointer-events-none" />
+                <User className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground pointer-events-none" />
                 <input
                   id="register-fullname"
                   type="text"
                   autoComplete="name"
                   placeholder="Nama lengkap Anda"
                   {...register('fullName')}
-                  className={`w-full pl-10 pr-4 py-2.5 rounded-xl border text-sm transition-colors outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary bg-background
+                  className={`w-full pl-10 pr-4 py-2.5 rounded-lg border text-sm transition-colors outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary bg-background
                     ${errors.fullName
                       ? 'border-destructive bg-destructive/5 text-destructive'
                       : 'border-border text-foreground placeholder-muted-foreground hover:border-primary/30'
@@ -155,18 +150,18 @@ export default function RegisterPage() {
 
             {/* Email */}
             <div className="space-y-1.5">
-              <label htmlFor="register-email" className="block text-sm font-medium text-foreground">
+              <label htmlFor="register-email" className="block text-xs font-medium text-foreground tracking-wide">
                 Email
               </label>
               <div className="relative">
-                <Mail className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground pointer-events-none" />
+                <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground pointer-events-none" />
                 <input
                   id="register-email"
                   type="email"
                   autoComplete="email"
                   placeholder="email@contoh.com"
                   {...register('email')}
-                  className={`w-full pl-10 pr-4 py-2.5 rounded-xl border text-sm transition-colors outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary bg-background
+                  className={`w-full pl-10 pr-4 py-2.5 rounded-lg border text-sm transition-colors outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary bg-background
                     ${errors.email
                       ? 'border-destructive bg-destructive/5 text-destructive'
                       : 'border-border text-foreground placeholder-muted-foreground hover:border-primary/30'
@@ -180,18 +175,18 @@ export default function RegisterPage() {
 
             {/* Password */}
             <div className="space-y-1.5">
-              <label htmlFor="register-password" className="block text-sm font-medium text-foreground">
+              <label htmlFor="register-password" className="block text-xs font-medium text-foreground tracking-wide">
                 Password
               </label>
               <div className="relative">
-                <Lock className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground pointer-events-none" />
+                <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground pointer-events-none" />
                 <input
                   id="register-password"
                   type={showPassword ? 'text' : 'password'}
                   autoComplete="new-password"
                   placeholder="Minimal 6 karakter"
                   {...register('password')}
-                  className={`w-full pl-10 pr-11 py-2.5 rounded-xl border text-sm transition-colors outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary bg-background
+                  className={`w-full pl-10 pr-11 py-2.5 rounded-lg border text-sm transition-colors outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary bg-background
                     ${errors.password
                       ? 'border-destructive bg-destructive/5 text-destructive'
                       : 'border-border text-foreground placeholder-muted-foreground hover:border-primary/30'
@@ -200,7 +195,7 @@ export default function RegisterPage() {
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3.5 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
                   aria-label={showPassword ? 'Sembunyikan password' : 'Tampilkan password'}
                 >
                   {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
@@ -213,18 +208,18 @@ export default function RegisterPage() {
 
             {/* Confirm Password */}
             <div className="space-y-1.5">
-              <label htmlFor="register-confirm-password" className="block text-sm font-medium text-foreground">
+              <label htmlFor="register-confirm-password" className="block text-xs font-medium text-foreground tracking-wide">
                 Konfirmasi Password
               </label>
               <div className="relative">
-                <Lock className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground pointer-events-none" />
+                <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground pointer-events-none" />
                 <input
                   id="register-confirm-password"
                   type={showConfirmPassword ? 'text' : 'password'}
                   autoComplete="new-password"
                   placeholder="Ulangi password Anda"
                   {...register('confirmPassword')}
-                  className={`w-full pl-10 pr-11 py-2.5 rounded-xl border text-sm transition-colors outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary bg-background
+                  className={`w-full pl-10 pr-11 py-2.5 rounded-lg border text-sm transition-colors outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary bg-background
                     ${errors.confirmPassword
                       ? 'border-destructive bg-destructive/5 text-destructive'
                       : 'border-border text-foreground placeholder-muted-foreground hover:border-primary/30'
@@ -233,7 +228,7 @@ export default function RegisterPage() {
                 <button
                   type="button"
                   onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                  className="absolute right-3.5 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
                   aria-label={showConfirmPassword ? 'Sembunyikan password' : 'Tampilkan password'}
                 >
                   {showConfirmPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
@@ -249,7 +244,7 @@ export default function RegisterPage() {
               id="register-submit-btn"
               type="submit"
               disabled={isSubmitting || !!successMessage}
-              className="w-full bg-gradient-to-r from-primary to-purple-500 hover:from-primary/90 hover:to-purple-500/90 disabled:from-muted disabled:to-muted disabled:text-muted-foreground text-white font-semibold py-2.5 px-4 rounded-xl transition-all flex items-center justify-center gap-2 text-sm mt-2 cursor-pointer disabled:cursor-not-allowed shadow-lg shadow-primary/20 disabled:shadow-none"
+              className="w-full bg-primary hover:bg-primary/90 disabled:bg-muted disabled:text-muted-foreground text-primary-foreground font-semibold py-2.5 px-4 rounded-lg transition-all flex items-center justify-center gap-2 text-sm mt-1 cursor-pointer disabled:cursor-not-allowed"
             >
               {isSubmitting ? (
                 <>
@@ -263,7 +258,7 @@ export default function RegisterPage() {
           </form>
 
           {/* Footer link */}
-          <p className="mt-6 text-center text-sm text-muted-foreground">
+          <p className="mt-5 text-center text-sm text-muted-foreground">
             Sudah punya akun?{' '}
             <Link
               href="/login"
@@ -278,7 +273,7 @@ export default function RegisterPage() {
       {/* Back to home */}
       <p className="mt-4 text-center text-xs text-muted-foreground">
         <Link href="/" className="hover:text-foreground transition-colors">
-          ← Kembali ke beranda
+          &larr; Kembali ke beranda
         </Link>
       </p>
     </div>

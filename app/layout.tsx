@@ -1,19 +1,43 @@
 import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
+import { Space_Grotesk } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import { ThemeProvider } from 'next-themes'
 import './globals.css'
 
-const inter = Inter({
+const spaceGrotesk = Space_Grotesk({
   subsets: ['latin'],
+  variable: '--font-sans',
   display: 'swap',
-  variable: '--font-inter',
 })
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://ceksound.com'),
   title: 'CekSound — Deteksi Audio Deepfake dengan AI',
-  description: 'Verifikasi keaslian audio Anda secara instan. Deteksi deepfake dan audio AI-generated dengan teknologi forensik canggih berbasis machine learning.',
-  keywords: ['deepfake', 'audio', 'deteksi', 'AI', 'verifikasi', 'suara', 'forensik'],
+  description:
+    'Verifikasi keaslian audio Anda secara instan. Deteksi deepfake dan audio AI-generated gratis dengan teknologi forensik berbasis machine learning.',
+  keywords: ['deepfake', 'audio', 'deteksi', 'AI', 'verifikasi', 'suara', 'forensik', 'audio palsu'],
+  openGraph: {
+    title: 'CekSound — Deteksi Audio Deepfake dengan AI',
+    description:
+      'Verifikasi keaslian audio Anda secara instan. Deteksi deepfake dan audio AI-generated gratis.',
+    url: 'https://ceksound.com',
+    siteName: 'CekSound',
+    type: 'website',
+    locale: 'id_ID',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'CekSound — Deteksi Audio Deepfake dengan AI',
+    description:
+      'Verifikasi keaslian audio Anda secara instan. Deteksi deepfake dan audio AI-generated gratis.',
+  },
+  alternates: {
+    canonical: '/',
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
 }
 
 export default function RootLayout({
@@ -23,10 +47,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="id" suppressHydrationWarning>
-      <body className={`${inter.variable} font-sans antialiased`}>
+      <body className={`${spaceGrotesk.variable} font-sans antialiased`}>
         <ThemeProvider
           attribute="class"
-          defaultTheme="system"
+          defaultTheme="dark"
           enableSystem
           disableTransitionOnChange
         >

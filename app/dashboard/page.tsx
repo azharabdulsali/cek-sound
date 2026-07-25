@@ -55,24 +55,20 @@ export default function DashboardPage() {
     <AppLayout>
       <div className="p-4 sm:p-6">
         {/* Page Header */}
-        <div className="bg-gradient-to-br from-primary via-blue-500 to-purple-600 rounded-2xl p-5 sm:p-8 text-white shadow-xl shadow-primary/15 mb-6 sm:mb-8 relative overflow-hidden">
-          <div className="absolute inset-0 overflow-hidden pointer-events-none">
-            <div className="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full blur-3xl" />
-            <div className="absolute bottom-0 left-0 w-48 h-48 bg-white/5 rounded-full blur-3xl" />
-          </div>
-          <div className="relative z-10">
+        <div className="bg-primary text-primary-foreground rounded-lg p-5 sm:p-8 mb-6 sm:mb-8">
+          <div>
             <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold mb-1">
-              Selamat Datang, {userName}! 👋
+              Selamat Datang, {userName}!
             </h1>
-            <p className="text-blue-100/80 text-sm sm:text-base">
+            <p className="text-primary-foreground/80 text-sm sm:text-base">
               Kelola dan analisis audio Anda dengan mudah
             </p>
           </div>
         </div>
 
         {/* Stats Cards */}
-        <div className="grid grid-cols-3 gap-3 sm:gap-4 mb-6 sm:mb-8">
-          <div className="bg-card border border-border rounded-2xl p-4 sm:p-5 shadow-sm">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 mb-6 sm:mb-8">
+          <div className="bg-card border border-border rounded-lg p-4 sm:p-5 shadow-sm">
             <div className="flex items-center gap-2 sm:gap-3 mb-2 sm:mb-3">
               <div className="w-8 h-8 sm:w-10 sm:h-10 bg-primary/10 rounded-xl flex items-center justify-center flex-shrink-0">
                 <BarChart3 className="w-4 h-4 sm:w-5 sm:h-5 text-primary" />
@@ -84,7 +80,7 @@ export default function DashboardPage() {
             </p>
           </div>
 
-          <div className="bg-card border border-border rounded-2xl p-4 sm:p-5 shadow-sm">
+          <div className="bg-card border border-border rounded-lg p-4 sm:p-5 shadow-sm">
             <div className="flex items-center gap-2 sm:gap-3 mb-2 sm:mb-3">
               <div className="w-8 h-8 sm:w-10 sm:h-10 bg-emerald-500/10 rounded-xl flex items-center justify-center flex-shrink-0">
                 <CheckCircle2 className="w-4 h-4 sm:w-5 sm:h-5 text-emerald-500" />
@@ -96,7 +92,7 @@ export default function DashboardPage() {
             </p>
           </div>
 
-          <div className="bg-card border border-border rounded-2xl p-4 sm:p-5 shadow-sm">
+          <div className="bg-card border border-border rounded-lg p-4 sm:p-5 shadow-sm">
             <div className="flex items-center gap-2 sm:gap-3 mb-2 sm:mb-3">
               <div className="w-8 h-8 sm:w-10 sm:h-10 bg-red-500/10 rounded-xl flex items-center justify-center flex-shrink-0">
                 <AlertTriangle className="w-4 h-4 sm:w-5 sm:h-5 text-red-500" />
@@ -110,24 +106,24 @@ export default function DashboardPage() {
         </div>
 
         {/* Quick Action */}
-        <div className="bg-card border border-border rounded-2xl p-5 sm:p-6 mb-6 sm:mb-8 shadow-sm">
+        <div className="bg-card border border-border rounded-lg p-5 sm:p-6 mb-6 sm:mb-8 shadow-sm">
           <h2 className="text-base sm:text-lg font-bold text-foreground mb-4">Aksi Cepat</h2>
           <Link
             href="/periksa"
-            className="bg-gradient-to-r from-primary to-purple-500 hover:from-primary/90 hover:to-purple-500/90 rounded-xl p-4 sm:p-5 flex items-center gap-3 sm:gap-4 group transition-all duration-300 hover:shadow-lg hover:shadow-primary/15 hover:scale-[1.01]"
+            className="bg-primary hover:bg-primary/90 text-primary-foreground rounded-xl p-4 sm:p-5 flex items-center gap-3 sm:gap-4 group transition-all duration-300 hover:shadow-lg hover:shadow-primary/15 hover:scale-[1.01]"
           >
-            <div className="w-10 h-10 sm:w-12 sm:h-12 bg-white/15 backdrop-blur-sm rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform flex-shrink-0">
-              <Shield className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
+            <div className="w-10 h-10 sm:w-12 sm:h-12 bg-primary-foreground/15 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform flex-shrink-0">
+              <Shield className="w-5 h-5 sm:w-6 sm:h-6 text-primary-foreground" />
             </div>
             <div>
-              <h3 className="text-white font-bold text-base sm:text-lg leading-tight">Periksa Keaslian Audio</h3>
-              <p className="text-blue-100/70 text-xs sm:text-sm mt-0.5">Upload dan analisis audio untuk mendeteksi deepfake AI</p>
+              <h3 className="font-bold text-base sm:text-lg leading-tight">Periksa Keaslian Audio</h3>
+              <p className="text-primary-foreground/70 text-xs sm:text-sm mt-0.5">Upload dan analisis audio untuk mendeteksi deepfake AI</p>
             </div>
           </Link>
         </div>
 
         {/* Detection History */}
-        <div className="bg-card border border-border rounded-2xl overflow-hidden shadow-sm">
+        <div className="bg-card border border-border rounded-lg overflow-hidden shadow-sm">
           <div className="p-4 sm:p-5 border-b border-border flex justify-between items-center">
             <h2 className="text-base sm:text-lg font-bold text-foreground">Riwayat Deteksi</h2>
             {!loading && history.length > 0 && (

@@ -6,69 +6,69 @@ export function HowItWorks() {
   const steps = [
     {
       icon: Upload,
-      emoji: '🎙️',
+      step: '01',
       title: 'Upload Audio',
-      description: 'Rekam atau unggah file audio Anda dalam format MP3, WAV, atau format audio lainnya.',
-      color: 'from-primary to-blue-400',
+      description: 'Rekam atau unggah file audio dalam format MP3, WAV, FLAC, atau format lainnya.',
     },
     {
       icon: Cpu,
-      emoji: '⚙️',
+      step: '02',
       title: 'Analisis AI',
-      description: 'Model AI canggih kami menganalisis pola akustik dan karakteristik suara secara mendalam.',
-      color: 'from-purple-500 to-pink-400',
+      description: 'Model machine learning menganalisis pola akustik dan karakteristik suara.',
     },
     {
       icon: FileCheck,
-      emoji: '📊',
+      step: '03',
       title: 'Hasil Instan',
-      description: 'Terima laporan detail dengan skor kepercayaan dan klasifikasi audio secara real-time.',
-      color: 'from-emerald-500 to-teal-400',
+      description: 'Terima laporan dengan skor kepercayaan dan klasifikasi real-time.',
     },
   ]
 
   return (
-    <section id="how-it-works" className="w-full py-24 px-4 sm:px-6 lg:px-8 bg-muted/30 relative overflow-hidden">
-      {/* Subtle background decoration */}
-      <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        <div className="absolute top-1/2 left-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl -translate-y-1/2" />
-        <div className="absolute top-1/2 right-0 w-96 h-96 bg-purple-500/5 rounded-full blur-3xl -translate-y-1/2" />
-      </div>
+    <section id="how-it-works" className="w-full py-24 px-4 sm:px-6 lg:px-8 bg-muted/30 relative">
+      <div className="mx-auto max-w-5xl relative z-10">
+        {/* Section divider */}
+        <div className="flex items-center gap-3 mb-10 sm:mb-16">
+          <div className="h-px flex-1 bg-border" />
+          <span className="text-xs font-medium tracking-widest uppercase text-muted-foreground">
+            Proses
+          </span>
+          <div className="h-px flex-1 bg-border" />
+        </div>
 
-      <div className="mx-auto relative z-10">
-        {/* Section header */}
-        <div className="text-center mb-16">
-          <div className="inline-flex items-center gap-2 text-primary text-sm font-medium mb-4 bg-primary/10 px-3 py-1 rounded-full">
-            <Cpu className="w-4 h-4" />
-            Cara Kerja
-          </div>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground mb-4 text-balance">
-            Tiga Langkah{' '}
-            <span className="gradient-text">Sederhana</span>
+        <div className="text-center mb-10 sm:mb-16">
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-foreground mb-4 text-balance tracking-tight">
+            Tiga Langkah{" "}
+            <span className="text-primary">Sederhana</span>
           </h2>
-          <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-            Verifikasi keaslian audio Anda dengan AI terdepan dalam hitungan detik
+          <p className="text-muted-foreground text-base max-w-lg mx-auto leading-relaxed">
+            Verifikasi keaslian audio dalam hitungan detik
           </p>
         </div>
 
-        {/* Steps */}
+        {/* Steps — horizontal on desktop */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 relative">
           {/* Connection line (desktop) */}
-          <div className="hidden md:block absolute top-16 left-[20%] right-[20%] h-0.5 bg-gradient-to-r from-primary/20 via-purple-500/20 to-emerald-500/20" />
+          <div className="hidden md:block absolute top-8 left-[17%] right-[17%] h-px bg-border" />
 
-          {steps.map((step, index) => (
-            <div key={index} className="relative text-center group">
-              {/* Step number circle */}
-              <div className={`w-32 h-32 bg-gradient-to-br ${step.color} rounded-3xl flex items-center justify-center mx-auto mb-6 shadow-xl relative group-hover:scale-105 transition-transform duration-300`}>
-                <span className="text-4xl">{step.emoji}</span>
-                {/* Step number badge */}
-                <div className="absolute -top-2 -right-2 w-8 h-8 bg-card border-2 border-border rounded-full flex items-center justify-center text-sm font-bold text-foreground shadow-sm">
-                  {index + 1}
-                </div>
+          {steps.map((step) => (
+            <div key={step.step} className="relative text-center group">
+              {/* Step circle */}
+              <div className="w-16 h-16 bg-card border border-border rounded-xl flex items-center justify-center mx-auto mb-5 relative z-10 group-hover:border-primary/30 transition-colors">
+                <step.icon className="w-6 h-6 text-primary" />
               </div>
 
-              <h3 className="text-xl font-bold text-foreground mb-3">{step.title}</h3>
-              <p className="text-muted-foreground leading-relaxed max-w-xs mx-auto">{step.description}</p>
+              {/* Step label */}
+              <span className="text-[10px] font-bold tracking-widest uppercase text-primary/60 mb-2 block">
+                Langkah {step.step}
+              </span>
+
+              <h3 className="text-base font-bold text-foreground mb-2 tracking-tight">
+                {step.title}
+              </h3>
+              <p className="text-sm text-muted-foreground leading-relaxed max-w-xs mx-auto">
+                {step.description}
+              </p>
             </div>
           ))}
         </div>

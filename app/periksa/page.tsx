@@ -284,7 +284,7 @@ export default function PeriksaPage() {
     <AppLayout>
       <div className="p-4 sm:p-6">
         {/* Page Header */}
-        <div className="bg-gradient-to-br from-primary via-blue-500 to-purple-600 rounded-2xl p-5 sm:p-8 text-white shadow-xl shadow-primary/15 mb-6 sm:mb-8 relative overflow-hidden">
+        <div className="bg-primary text-primary-foreground rounded-lg p-5 sm:p-8 shadow-xl shadow-primary/15 mb-6 sm:mb-8 relative overflow-hidden">
           <div className="absolute inset-0 overflow-hidden pointer-events-none">
             <div className="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full blur-3xl" />
             <div className="absolute bottom-0 left-0 w-48 h-48 bg-white/5 rounded-full blur-3xl" />
@@ -306,7 +306,7 @@ export default function PeriksaPage() {
           {/* Upload / Record Panel — 3 cols */}
           <div className="lg:col-span-3 space-y-4">
             {/* Upload or Record */}
-            <div className="bg-card border border-border rounded-2xl p-6 shadow-sm">
+            <div className="bg-card border border-border rounded-lg p-6 shadow-sm">
               <div className="flex items-center gap-4 mb-4">
                 <h3 className="font-bold text-foreground flex items-center gap-2">
                   <UploadCloud className="w-5 h-5 text-muted-foreground" />
@@ -418,7 +418,7 @@ export default function PeriksaPage() {
 
             {/* Audio Preview */}
             {audioUrl && !isRecording && (
-              <div className="bg-card border border-border rounded-2xl p-4 shadow-sm">
+              <div className="bg-card border border-border rounded-lg p-4 shadow-sm">
                 <p className="text-sm font-medium text-foreground mb-2 flex items-center gap-2">
                   <AudioLines className="w-4 h-4 text-primary" />
                   Preview Audio
@@ -437,7 +437,7 @@ export default function PeriksaPage() {
                 id="analyze-btn"
                 onClick={handleAnalyze}
                 disabled={isUploading || !file || isRecording}
-                className="flex-1 bg-gradient-to-r from-primary to-purple-500 hover:from-primary/90 hover:to-purple-500/90 disabled:from-muted disabled:to-muted disabled:text-muted-foreground text-white font-semibold py-3 px-6 rounded-xl transition-all duration-300 flex items-center justify-center gap-2 text-sm shadow-lg shadow-primary/20 disabled:shadow-none cursor-pointer disabled:cursor-not-allowed hover:scale-[1.01] active:scale-[0.99]"
+                className="flex-1 bg-primary hover:bg-primary/90 disabled:bg-muted disabled:text-muted-foreground text-primary-foreground font-semibold py-3 px-6 rounded-xl transition-all duration-300 flex items-center justify-center gap-2 text-sm shadow-lg shadow-primary/20 disabled:shadow-none cursor-pointer disabled:cursor-not-allowed hover:scale-[1.01] active:scale-[0.99]"
               >
                 {isUploading ? (
                   <>
@@ -474,7 +474,7 @@ export default function PeriksaPage() {
 
           {/* Result Panel — 2 cols */}
           <div className="lg:col-span-2">
-            <div className="bg-card border border-border rounded-2xl p-5 sm:p-6 shadow-sm h-full min-h-[300px] lg:min-h-[400px] flex flex-col">
+            <div className="bg-card border border-border rounded-lg p-5 sm:p-6 shadow-sm h-full min-h-[300px] lg:min-h-[400px] flex flex-col">
               <h3 className="font-bold text-foreground mb-4 pb-4 border-b border-border">
                 Hasil Analisis
               </h3>
@@ -504,7 +504,7 @@ export default function PeriksaPage() {
                       {[20,28,16,32,24,14,30,18,26,22,34,20,28,16,30,24].map((h, i) => (
                         <div
                           key={i}
-                          className="sound-wave-bar animate-wave w-1 rounded-full"
+                          className="bg-primary animate-pulse w-1 rounded-full"
                           style={{
                             height: `${h}px`,
                             animationDelay: `${i * 0.1}s`,
@@ -537,7 +537,7 @@ export default function PeriksaPage() {
                         </div>
                         <div className="w-full h-3 bg-muted rounded-full overflow-hidden">
                           <div
-                            className="h-full bg-gradient-to-r from-emerald-500 to-teal-400 rounded-full animate-progress-fill transition-all"
+                            className="h-full bg-emerald-500 rounded-full animate-progress-fill transition-all"
                             style={{ width: `${probAsliPercent}%` }}
                           />
                         </div>
@@ -549,7 +549,7 @@ export default function PeriksaPage() {
                         </div>
                         <div className="w-full h-3 bg-muted rounded-full overflow-hidden">
                           <div
-                            className="h-full bg-gradient-to-r from-red-500 to-orange-400 rounded-full animate-progress-fill transition-all"
+                            className="h-full bg-red-500 rounded-full animate-progress-fill transition-all"
                             style={{ width: `${probDeepfakePercent}%` }}
                           />
                         </div>
@@ -580,7 +580,7 @@ export default function PeriksaPage() {
                         </div>
                         <div className="w-full h-3 bg-muted rounded-full overflow-hidden">
                           <div
-                            className="h-full bg-gradient-to-r from-red-500 to-orange-400 rounded-full animate-progress-fill transition-all"
+                            className="h-full bg-red-500 rounded-full animate-progress-fill transition-all"
                             style={{ width: `${probDeepfakePercent}%` }}
                           />
                         </div>
@@ -592,7 +592,7 @@ export default function PeriksaPage() {
                         </div>
                         <div className="w-full h-3 bg-muted rounded-full overflow-hidden">
                           <div
-                            className="h-full bg-gradient-to-r from-emerald-500 to-teal-400 rounded-full animate-progress-fill transition-all"
+                            className="h-full bg-emerald-500 rounded-full animate-progress-fill transition-all"
                             style={{ width: `${probAsliPercent}%` }}
                           />
                         </div>

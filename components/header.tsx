@@ -7,42 +7,45 @@ import { AudioLines } from 'lucide-react'
 
 export function Header() {
   return (
-    <header className="sticky top-0 z-50 glass border-b border-border/50">
-      <div className="px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+    <header className="sticky top-0 z-50 bg-background/80 backdrop-blur-xl border-b border-border">
+      <div className="px-4 sm:px-6 lg:px-8 h-14 flex items-center justify-between">
         {/* Logo */}
-        <Link href="/" className="flex items-center gap-2.5 group">
-          <div className="w-9 h-9 bg-gradient-to-br from-primary to-purple-500 rounded-xl flex items-center justify-center shadow-lg shadow-primary/20 group-hover:shadow-primary/40 transition-shadow">
-            <AudioLines className="w-5 h-5 text-white" />
+        <Link href="/" className="flex items-center gap-2 group">
+          <div className="w-8 h-8 bg-primary/10 rounded-lg flex items-center justify-center group-hover:bg-primary/20 transition-colors">
+            <AudioLines className="w-4 h-4 text-primary" />
           </div>
-          <span className="text-lg font-bold text-foreground tracking-tight">CekSound</span>
+          <span className="text-sm font-bold text-foreground tracking-tight">CekSound</span>
         </Link>
 
         {/* Desktop Nav */}
-        <nav className="hidden sm:flex items-center gap-6">
-          <a href="#features" className="text-muted-foreground hover:text-foreground transition-colors text-sm font-medium">
+        <nav className="hidden sm:flex items-center gap-5">
+          <a href="#features" className="text-xs font-medium text-muted-foreground hover:text-foreground transition-colors tracking-wide">
             Fitur
           </a>
-          <a href="#how-it-works" className="text-muted-foreground hover:text-foreground transition-colors text-sm font-medium">
+          <a href="#how-it-works" className="text-xs font-medium text-muted-foreground hover:text-foreground transition-colors tracking-wide">
             Cara Kerja
           </a>
-          <div className="flex items-center gap-2.5 ml-2">
+          <a href="#faq" className="text-xs font-medium text-muted-foreground hover:text-foreground transition-colors tracking-wide">
+            FAQ
+          </a>
+          <div className="flex items-center gap-2 ml-2">
             <ThemeToggle />
-            <Button asChild variant="outline" size="sm" className="border-border text-foreground hover:bg-accent">
+            <Button asChild variant="ghost" size="sm" className="text-foreground text-xs font-medium px-3">
               <Link href="/login">Masuk</Link>
             </Button>
-            <Button asChild size="sm" className="bg-gradient-to-r from-primary to-purple-500 hover:from-primary/90 hover:to-purple-500/90 text-white shadow-lg shadow-primary/20">
+            <Button asChild size="sm" className="bg-primary hover:bg-primary/90 text-primary-foreground text-xs font-medium px-4 rounded-lg">
               <Link href="/register">Daftar</Link>
             </Button>
           </div>
         </nav>
 
         {/* Mobile Nav */}
-        <div className="sm:hidden flex items-center gap-2">
+        <div className="sm:hidden flex items-center gap-1">
           <ThemeToggle />
-          <Button asChild variant="outline" size="sm" className="border-border text-foreground text-xs px-2.5">
+          <Button asChild variant="ghost" size="sm" className="text-foreground text-[11px] px-1.5">
             <Link href="/login">Masuk</Link>
           </Button>
-          <Button asChild size="sm" className="bg-gradient-to-r from-primary to-purple-500 text-white text-xs px-2.5">
+          <Button asChild size="sm" className="bg-primary hover:bg-primary/90 text-primary-foreground text-[11px] px-2.5 rounded-lg">
             <Link href="/register">Daftar</Link>
           </Button>
         </div>

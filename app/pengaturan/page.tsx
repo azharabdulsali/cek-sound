@@ -4,16 +4,13 @@ import { useState } from 'react'
 import { AppLayout } from '@/components/app-layout'
 import { Settings, Lock, User, Mail, Loader2, CheckCircle2, AlertTriangle, Eye, EyeOff, AudioLines } from 'lucide-react'
 import { supabase } from '@/lib/supabase'
-import { ThemeToggle } from '@/components/theme-toggle'
 import { useTheme } from 'next-themes'
 import { useEffect } from 'react'
 
 export default function PengaturanPage() {
   // Password change state
-  const [currentPassword, setCurrentPassword] = useState('')
   const [newPassword, setNewPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
-  const [showCurrentPassword, setShowCurrentPassword] = useState(false)
   const [showNewPassword, setShowNewPassword] = useState(false)
   const [showConfirmPassword, setShowConfirmPassword] = useState(false)
   const [passwordLoading, setPasswordLoading] = useState(false)
@@ -73,7 +70,6 @@ export default function PengaturanPage() {
         setPasswordError(error.message)
       } else {
         setPasswordSuccess('Password berhasil diubah!')
-        setCurrentPassword('')
         setNewPassword('')
         setConfirmPassword('')
         setTimeout(() => setPasswordSuccess(null), 3000)
@@ -118,28 +114,23 @@ export default function PengaturanPage() {
     <AppLayout>
       <div className="p-4 sm:p-6">
         {/* Page Header */}
-        <div className="bg-gradient-to-br from-primary via-blue-500 to-purple-600 rounded-2xl p-5 sm:p-8 text-white shadow-xl shadow-primary/15 mb-6 sm:mb-8 relative overflow-hidden">
-          <div className="absolute inset-0 overflow-hidden pointer-events-none">
-            <div className="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full blur-3xl" />
-          </div>
-          <div className="relative z-10">
-            <div className="flex items-center gap-3 mb-2">
-              <div className="w-10 h-10 bg-white/15 backdrop-blur-sm rounded-xl flex items-center justify-center flex-shrink-0">
-                <Settings className="w-5 h-5 text-white" />
-              </div>
-              <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold">Pengaturan</h1>
+        <div className="bg-primary text-primary-foreground rounded-lg p-5 sm:p-8 mb-6 sm:mb-8">
+          <div className="flex items-center gap-3 mb-2">
+            <div className="w-10 h-10 bg-white/15 rounded-lg flex items-center justify-center flex-shrink-0">
+              <Settings className="w-5 h-5 text-white" />
             </div>
-            <p className="text-blue-100/80 text-sm sm:text-base mt-1 pl-[52px]">
-              Kelola profil dan preferensi akun Anda
-            </p>
+            <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold">Pengaturan</h1>
           </div>
+          <p className="text-primary-foreground/80 text-sm sm:text-base mt-1 pl-[52px]">
+            Kelola profil dan preferensi akun Anda
+          </p>
         </div>
 
         <div className="space-y-6">
           {/* Profile Section */}
-          <div className="bg-card border border-border rounded-2xl p-6 shadow-sm">
+          <div className="bg-card border border-border rounded-lg p-6 shadow-sm">
             <div className="flex items-center gap-3 mb-6 pb-4 border-b border-border">
-              <div className="w-9 h-9 bg-primary/10 rounded-xl flex items-center justify-center">
+              <div className="w-9 h-9 bg-primary/10 rounded-lg flex items-center justify-center">
                 <User className="w-5 h-5 text-primary" />
               </div>
               <div>
@@ -204,7 +195,7 @@ export default function PengaturanPage() {
                 <button
                   type="submit"
                   disabled={profileSaving}
-                  className="bg-gradient-to-r from-primary to-purple-500 hover:from-primary/90 hover:to-purple-500/90 disabled:from-muted disabled:to-muted disabled:text-muted-foreground text-white font-semibold py-2.5 px-6 rounded-xl transition-all text-sm cursor-pointer disabled:cursor-not-allowed shadow-lg shadow-primary/20 disabled:shadow-none flex items-center gap-2"
+                  className="bg-primary hover:bg-primary/90 disabled:bg-muted disabled:text-muted-foreground text-primary-foreground font-semibold py-2.5 px-6 rounded-lg transition-all text-sm cursor-pointer disabled:cursor-not-allowed flex items-center gap-2"
                 >
                   {profileSaving ? (
                     <>
@@ -220,9 +211,9 @@ export default function PengaturanPage() {
           </div>
 
           {/* Change Password Section */}
-          <div className="bg-card border border-border rounded-2xl p-6 shadow-sm">
+          <div className="bg-card border border-border rounded-lg p-6 shadow-sm">
             <div className="flex items-center gap-3 mb-6 pb-4 border-b border-border">
-              <div className="w-9 h-9 bg-amber-500/10 rounded-xl flex items-center justify-center">
+              <div className="w-9 h-9 bg-amber-500/10 rounded-lg flex items-center justify-center">
                 <Lock className="w-5 h-5 text-amber-500" />
               </div>
               <div>
@@ -296,7 +287,7 @@ export default function PengaturanPage() {
               <button
                 type="submit"
                 disabled={passwordLoading || !newPassword || !confirmPassword}
-                className="bg-amber-500 hover:bg-amber-600 disabled:bg-muted disabled:text-muted-foreground text-white font-semibold py-2.5 px-6 rounded-xl transition-all text-sm cursor-pointer disabled:cursor-not-allowed shadow-lg shadow-amber-500/20 disabled:shadow-none flex items-center gap-2"
+                className="bg-amber-500 hover:bg-amber-600 disabled:bg-muted disabled:text-muted-foreground text-white font-semibold py-2.5 px-6 rounded-lg transition-all text-sm cursor-pointer disabled:cursor-not-allowed flex items-center gap-2"
               >
                 {passwordLoading ? (
                   <>
@@ -311,9 +302,9 @@ export default function PengaturanPage() {
           </div>
 
           {/* Appearance Section */}
-          <div className="bg-card border border-border rounded-2xl p-6 shadow-sm">
+          <div className="bg-card border border-border rounded-lg p-6 shadow-sm">
             <div className="flex items-center gap-3 mb-6 pb-4 border-b border-border">
-              <div className="w-9 h-9 bg-purple-500/10 rounded-xl flex items-center justify-center">
+              <div className="w-9 h-9 bg-purple-500/10 rounded-lg flex items-center justify-center">
                 <AudioLines className="w-5 h-5 text-purple-500" />
               </div>
               <div>
@@ -367,9 +358,9 @@ export default function PengaturanPage() {
           </div>
 
           {/* About Section */}
-          <div className="bg-card border border-border rounded-2xl p-6 shadow-sm">
+          <div className="bg-card border border-border rounded-lg p-6 shadow-sm">
             <div className="flex items-center gap-3 mb-4 pb-4 border-b border-border">
-              <div className="w-9 h-9 bg-primary/10 rounded-xl flex items-center justify-center">
+              <div className="w-9 h-9 bg-primary/10 rounded-lg flex items-center justify-center">
                 <AudioLines className="w-5 h-5 text-primary" />
               </div>
               <div>

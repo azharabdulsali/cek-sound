@@ -59,8 +59,8 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center">
         <div className="flex flex-col items-center gap-3">
-          <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-primary to-purple-500 flex items-center justify-center animate-pulse">
-            <AudioLines className="w-6 h-6 text-white" />
+          <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center animate-pulse">
+            <AudioLines className="w-6 h-6 text-primary" />
           </div>
           <p className="text-sm text-muted-foreground">Memuat...</p>
         </div>
@@ -70,11 +70,11 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
 
   return (
     <div className="min-h-screen bg-background flex flex-col md:flex-row">
-      {/* Mobile Topbar — only visible on <768px */}
+      {/* Mobile Topbar */}
       <header className="md:hidden bg-card border-b border-border flex items-center justify-between px-4 h-14 sticky top-0 z-50">
         <Link href="/dashboard" className="flex items-center gap-2.5">
-          <div className="w-8 h-8 bg-gradient-to-br from-primary to-purple-500 rounded-lg flex items-center justify-center">
-            <AudioLines className="w-4 h-4 text-white" />
+          <div className="w-8 h-8 bg-primary/10 rounded-lg flex items-center justify-center">
+            <AudioLines className="w-4 h-4 text-primary" />
           </div>
           <span className="text-base font-bold text-foreground">CekSound</span>
         </Link>
@@ -90,7 +90,7 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
         </div>
       </header>
 
-      {/* Mobile Menu Overlay — only on <768px */}
+      {/* Mobile Menu Overlay */}
       {mobileMenuOpen && (
         <div
           className="md:hidden fixed inset-0 top-14 z-40 bg-background/80 backdrop-blur-sm"
@@ -101,34 +101,18 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
             onClick={(e) => e.stopPropagation()}
           >
             <nav className="space-y-1">
-              <Link
-                href="/dashboard"
-                className="flex items-center gap-3 px-4 py-3 rounded-xl text-foreground hover:bg-accent text-sm font-medium"
-                onClick={() => setMobileMenuOpen(false)}
-              >
+              <Link href="/dashboard" className="flex items-center gap-3 px-4 py-3 rounded-lg text-foreground hover:bg-accent text-sm font-medium" onClick={() => setMobileMenuOpen(false)}>
                 Dashboard
               </Link>
-              <Link
-                href="/periksa"
-                className="flex items-center gap-3 px-4 py-3 rounded-xl text-foreground hover:bg-accent text-sm font-medium"
-                onClick={() => setMobileMenuOpen(false)}
-              >
+              <Link href="/periksa" className="flex items-center gap-3 px-4 py-3 rounded-lg text-foreground hover:bg-accent text-sm font-medium" onClick={() => setMobileMenuOpen(false)}>
                 Periksa Audio
               </Link>
-              <Link
-                href="/pengaturan"
-                className="flex items-center gap-3 px-4 py-3 rounded-xl text-foreground hover:bg-accent text-sm font-medium"
-                onClick={() => setMobileMenuOpen(false)}
-              >
+              <Link href="/pengaturan" className="flex items-center gap-3 px-4 py-3 rounded-lg text-foreground hover:bg-accent text-sm font-medium" onClick={() => setMobileMenuOpen(false)}>
                 Pengaturan
               </Link>
             </nav>
             <div className="mt-4 pt-4 border-t border-border">
-              <button
-                onClick={handleLogout}
-                disabled={loggingOut}
-                className="flex items-center gap-3 px-4 py-3 rounded-xl text-red-500 hover:bg-red-500/10 text-sm font-medium w-full"
-              >
+              <button onClick={handleLogout} disabled={loggingOut} className="flex items-center gap-3 px-4 py-3 rounded-lg text-muted-foreground hover:text-destructive hover:bg-destructive/10 text-sm font-medium w-full transition-colors">
                 <LogOut className="w-4 h-4" />
                 Keluar
               </button>
@@ -137,44 +121,32 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
         </div>
       )}
 
-      {/* Sidebar — visible md+ (tablet & desktop) */}
+      {/* Sidebar */}
       <AppSidebar />
 
       {/* Main Content Area */}
       <div className="flex-1 flex flex-col min-w-0">
-        {/* Desktop / Tablet Topbar — hidden on mobile */}
+        {/* Desktop Topbar */}
         <header className="hidden md:flex bg-card border-b border-border h-16 items-center justify-between px-5 lg:px-6 sticky top-0 z-30">
           <Link href="/dashboard" className="flex items-center gap-2.5">
-            <div className="w-8 h-8 bg-gradient-to-br from-primary to-purple-500 rounded-lg flex items-center justify-center">
-              <AudioLines className="w-4 h-4 text-white" />
+            <div className="w-8 h-8 bg-primary/10 rounded-lg flex items-center justify-center">
+              <AudioLines className="w-4 h-4 text-primary" />
             </div>
             <span className="text-base font-bold text-foreground">CekSound</span>
           </Link>
 
-          {/* User info + theme + logout */}
           <div className="flex items-center gap-2 lg:gap-3">
             <ThemeToggle />
-
             <div className="flex items-center gap-2 bg-accent rounded-full px-3 py-1.5 border border-border">
-              <div className="w-6 h-6 bg-gradient-to-br from-primary to-purple-500 rounded-full flex items-center justify-center flex-shrink-0">
-                <User className="w-3.5 h-3.5 text-white" />
+              <div className="w-6 h-6 bg-primary/10 rounded-full flex items-center justify-center flex-shrink-0">
+                <User className="w-3.5 h-3.5 text-primary" />
               </div>
               <span className="text-sm font-medium text-foreground max-w-[120px] lg:max-w-[150px] truncate">
                 {fullName}
               </span>
             </div>
-
-            <button
-              onClick={handleLogout}
-              disabled={loggingOut}
-              className="w-9 h-9 rounded-full bg-accent hover:bg-destructive/10 flex items-center justify-center text-muted-foreground hover:text-destructive border border-border hover:border-destructive/30 transition-all disabled:opacity-50 cursor-pointer disabled:cursor-not-allowed"
-              title="Keluar"
-            >
-              {loggingOut ? (
-                <Loader2 className="w-4 h-4 animate-spin" />
-              ) : (
-                <LogOut className="w-4 h-4" />
-              )}
+            <button onClick={handleLogout} disabled={loggingOut} className="w-9 h-9 rounded-full bg-accent hover:bg-destructive/10 flex items-center justify-center text-muted-foreground hover:text-destructive border border-border transition-colors disabled:opacity-50 cursor-pointer disabled:cursor-not-allowed" title="Keluar">
+              {loggingOut ? <Loader2 className="w-4 h-4 animate-spin" /> : <LogOut className="w-4 h-4" />}
             </button>
           </div>
         </header>
